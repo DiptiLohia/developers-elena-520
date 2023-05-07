@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import {Heading} from "./components/Heading";
+import {Inputs} from "./components/Inputs";
+import {Paths} from "./components/Paths";
 import './App.css';
+import React from 'react';
+import { MapComponent } from "./components/MapComponent";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <div>
+    <Heading/>
+    </div>
+    <div className = "container">
+      <div className= "half left">
+      <Inputs/>
+      <Paths/>
+      </div>
+      <div className = "half right">
+      <MapComponent/>
+    </div>
+    </div>
     </div>
   );
 }
