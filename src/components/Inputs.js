@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 // import { Input } from "@progress/kendo-react-inputs";
-
+// import { getMatchedResults } from "../Services/Autocomplete";
+// import { getMetaData } from "../Services/services";
 
 // import inputs from './Inputs';
-
 export const Inputs = () => {
   const [sourceLocation, setSourceLocation] = useState('');
   const [destinationLocation, setDestinationLocation] = useState('');
   const [valueOfX, setValueOfX] = useState('');
 
-
   function handleSourceChange(event) {
     setSourceLocation(event.target.value);
-  }
+    }
+
   function handleDestinationChange(event) {
     setDestinationLocation(event.target.value);
   }
@@ -20,25 +20,61 @@ export const Inputs = () => {
     setValueOfX(event.target.value);
   }
 
+
+    const autoCompleteRefSource = useRef();
+    const inputRefSource = useRef();
+    const autoCompleteRefDest = useRef();
+    const inputRefDest = useRef();
+    const options = {
+    fields: ["address_components", "geometry", "icon", "name"],
+    }
+
+    useEffect(() => {
+     autoCompleteRefSource.current = new window.google.maps.places.Autocomplete(
+      inputRefSource.current,
+      options
+     );
+     autoCompleteRefSource.current.addListener("place_changed", async function () {
+        const source = await autoCompleteRefSource.current.getPlace();
+        console.log({ source });
+        setSourceLocation(source);
+       });
+    
+       autoCompleteRefDest.current = new window.google.maps.places.Autocomplete(
+        inputRefDest.current,
+        options
+       );
+       autoCompleteRefDest.current.addListener("place_changed", async function () {
+          const dest = await autoCompleteRefDest.current.getPlace();
+          setDestinationLocation(dest)
+          console.log({ dest });
+         });
+
+    }, []);
+
+
+
   return (
+
     <form className = "input_forms">
     <div>
       <input
+      ref= {inputRefSource}
+      id = "source"
         label="source"
         type="address"
         name="source"
-        value={sourceLocation}
         onChange={handleSourceChange}
         placeholder="Enter Source"
-        //className="mbsc-col-12 mbsc-col-lg-6"
+        className="mbsc-col-12 mbsc-col-lg-6"
       />
         </div>
         <div>
       <input
-        // label="destination"
+        ref= {inputRefDest}
+        label="destination"
         type="address"
         name="destination"
-        value={destinationLocation}
         onChange={handleDestinationChange}
         placeholder="Enter Destination"
 
@@ -46,7 +82,6 @@ export const Inputs = () => {
       </div>
       <div>
       <input
-        // label="valueX"
         type="integer"
         name="valueX"
         value={valueOfX}
@@ -61,6 +96,6 @@ export const Inputs = () => {
       
     </form>
   );
-}
 
+  }
 // export default Inputs;
