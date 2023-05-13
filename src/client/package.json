@@ -1,0 +1,57 @@
+{
+    "name": "client",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+      "@testing-library/jest-dom": "^5.14.1",
+      "@testing-library/react": "^13.0.0",
+      "@testing-library/user-event": "^13.2.1",
+      "antd": "^5.0.0",
+      "axios": "^1.2.0",
+      "fetch-jsonp": "^1.2.3",
+      "leaflet": "^1.9.2",
+      "leaflet-geosearch": "^3.7.0",
+      "object-hash": "^3.0.0",
+      "qs": "^6.11.0",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "react-leaflet": "^4.1.0",
+      "react-scripts": "5.0.1",
+      "unstated-next": "^1.1.0",
+      "web-vitals": "^2.1.0",
+      "@iconify/icons-mdi": "^1.2.45",
+      "@iconify/react": "^4.1.0",
+      "@progress/kendo-react-inputs": "^5.13.1",
+      "google-map-react": "^2.2.0",
+      "google-maps-react": "^2.0.6"
+    },
+    "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+      "extends": [
+        "react-app",
+        "react-app/jest"
+      ]
+    },
+    "browserslist": {
+      "production": [
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
+      ],
+      "development": [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "last 1 safari version"
+      ]
+    },
+    "jest": {
+      "transformIgnorePatterns": [
+        "node_modules/(?!axios)/"
+      ]
+    }
+  }
