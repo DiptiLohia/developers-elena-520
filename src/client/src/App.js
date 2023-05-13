@@ -1,26 +1,23 @@
-import {Heading} from "./components/Heading";
-import {Inputs} from "./components/Inputs";
-import {Paths} from "./components/Paths";
-import './App.css';
-import React from 'react';
-import { MapComponent } from "./components/MapComponent";
+import "./App.css";
+import { Layout } from "antd";
+import { Map } from "./components/Map";
+import { TopHeader } from "./components/TopHeader";
+import { SideHeader } from "./components/SideHeader";
 
+const { Content } = Layout;
 
 function App() {
   return (
-    <div>
-    <div>
-    <Heading/>
-    </div>
-    <div className = "container">
-      <div className= "half left">
-      <Inputs/>
-      <Paths/>
-      </div>
-      <div className = "half right">
-      <MapComponent/>
-    </div>
-    </div>
+    <div className="App">
+      <Layout>
+        <TopHeader/>
+        <Layout>
+          <Content>
+            <Map />
+          </Content>
+          <SideHeader/>
+        </Layout>
+      </Layout>
     </div>
   );
 }
