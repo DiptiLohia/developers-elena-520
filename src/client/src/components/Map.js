@@ -3,6 +3,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import { Container } from "../Store/Provider";
 import { useState, useEffect } from "react";
 import hash from 'object-hash';
 
@@ -44,6 +45,26 @@ export const Map = () => {
   const [markers, setMarkers] = useState({ startMarker: [], endMarker: [] });
   const [polyline, setPolyline] = useState([]);
   const [keyValue, setKeyValue] = useState("initial");
+  const container = Container.useContainer();
+
+  useEffect(() => {
+    setZoomLocation(container.newLocation);
+    // console.log(markers);
+    let newMarker = markers;
+    newMarker.startMarker = container.startCoordinate;
+    newMarker.endMarker = container.endCoordinate;
+    // console.log(newMarker)
+    setMarkers(newMarker);
+    setPolyline(container.path);
+    setKeyValue(hash({'marker': newMarker, 'path': polyline}));
+  }, [
+    container.newLocation,
+    container.startCoordinate,
+    container.endCoordinate,
+    container.path,
+    markers,
+    polyline
+  ]);
 
   const blackOptions = { color: 'blue', weight: '6' }
 

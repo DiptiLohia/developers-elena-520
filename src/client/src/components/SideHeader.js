@@ -1,5 +1,6 @@
 import { Layout } from "antd";
 import { useState } from "react";
+import { InputFields } from "./InputFields";
 
 const { Sider } = Layout;
 
@@ -24,6 +25,7 @@ export const SideHeader = () => {
         data-testid="checkVisible"
         className={isVisible ? "visible" : "invisible"}
       >
+        <InputFields />
       </div>
     </Sider>
   );
