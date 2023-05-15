@@ -2,9 +2,9 @@ import React, { useRef, useState, useEffect } from 'react';
 // import { Input } from "@progress/kendo-react-inputs";
 // import { getMatchedResults } from "../Services/Autocomplete";
 // import { getMetaData } from "../Services/services";
-
+import { MapComponent } from './MapComponent';
 // import inputs from './Inputs';
-export const Inputs = () => {
+export const Inputs = (props) => {
   const [sourceLocation, setSourceLocation] = useState('');
   const [destinationLocation, setDestinationLocation] = useState('');
   const [valueOfX, setValueOfX] = useState('');
@@ -19,6 +19,10 @@ export const Inputs = () => {
   function handleValueXChange(event) {
     setValueOfX(event.target.value);
   }
+  function handleSubmitClick(event) {
+    props.setHiddenState(false);
+  }
+
 
 
     const autoCompleteRefSource = useRef();
@@ -89,7 +93,8 @@ export const Inputs = () => {
         placeholder="Enter value of x"
       />
       </div>
-      <button>
+      <button
+      onClick={handleSubmitClick}>
           Search
       </button>
 

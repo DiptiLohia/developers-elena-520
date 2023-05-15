@@ -52,29 +52,19 @@ export const MapComponent = () =>  {
 return(
 
     <div style={{ height: '100vh', width: '100%' }}>
-    <GoogleMapReact
+    {/* <GoogleMapReact
       bootstrapURLKeys={{ key: 'AIzaSyB123Gg1MjYJ_fmrdhDh5A2ftpitbVtCmA' }}
         defaultCenter={defaultProps.center}
       defaultZoom = {defaultProps.zoom}
-    >
+      hidden = {false}
+    > */}
       <LocationPin
         lat= {37.42216}
         lng= {-122.08427}
+        text = "MY MARK"
       />
-    </GoogleMapReact>
+    {/* </GoogleMapReact> */}
   </div>
 
-    // <div id="map" class="map"> </div>
-//   <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
-//     <TileLayer
-//       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-//       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-//     />
-//     <Marker position={position}>
-//       <Popup>
-//         A pretty CSS3 popup. <br /> Easily customizable.
-//       </Popup>
-//     </Marker>
-//   </MapContainer>
 )
 }
