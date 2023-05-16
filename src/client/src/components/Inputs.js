@@ -93,6 +93,7 @@ export const Inputs = (props) => {
         placeholder="Enter value of x"
       />
       </div>
+
       <button
       onClick={handleSubmitClick}>
           Search

@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import GoogleMapReact from 'google-map-react'
 import { Icon } from '@iconify/react'
 import locationIcon from '@iconify/icons-mdi/map-marker'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import MyMarker from "./MyMarker";
+import "./marker.css";
+//import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 // export const MapComponent = () =>  {
 //   return (
@@ -26,6 +28,11 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 // var directionsDisplay = new google.maps.DirectionsRenderer();// also, constructor can get "DirectionsRendererOptions" object
 // directionsDisplay.setMap(map);
 
+const points = [
+  { lat: 51.506, lng: -0.184 },
+  { lat: 51.508, lng: -0.175 },
+  { lat: 51.505, lng: -0.164 }
+];
 
 export const MapComponent = () =>  {   
 
@@ -52,19 +59,26 @@ export const MapComponent = () =>  {
 return(
 
     <div style={{ height: '100vh', width: '100%' }}>
-    {/* <GoogleMapReact
+    <GoogleMapReact
       bootstrapURLKeys={{ key: 'AIzaSyB123Gg1MjYJ_fmrdhDh5A2ftpitbVtCmA' }}
-        defaultCenter={defaultProps.center}
+      defaultCenter={defaultProps.center}
       defaultZoom = {defaultProps.zoom}
-      hidden = {false}
-    > */}
-      <LocationPin
+    > 
+    {points.map(({ lat, lng }) => {
+          return (
+            <MyMarker lat={lat} lng={lng}  />
+          );
+        })}
+    
+    {/* <Marker lat={37.42216} lng={-122.08427} /> */}
+      {/* <LocationPin
         lat= {37.42216}
         lng= {-122.08427}
         text = "MY MARK"
-      />
-    {/* </GoogleMapReact> */}
+      /> */}
+    </GoogleMapReact>
   </div>
 
 )
 }
+
