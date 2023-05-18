@@ -19,9 +19,9 @@ export const Inputs = (props) => {
   function handleValueXChange(event) {
     setValueOfX(event.target.value);
   }
-  function handleSubmitClick(event) {
-    props.setHiddenState(false);
-  }
+  // function handleSubmitClick(event) {
+  //   props.setHiddenState(false);
+  // }
 
 
 
@@ -42,6 +42,8 @@ export const Inputs = (props) => {
         const source = await autoCompleteRefSource.current.getPlace();
         console.log({ source });
         setSourceLocation(source);
+        props.setOrigin(source);
+
        });
     
        autoCompleteRefDest.current = new window.google.maps.places.Autocomplete(
@@ -51,6 +53,7 @@ export const Inputs = (props) => {
        autoCompleteRefDest.current.addListener("place_changed", async function () {
           const dest = await autoCompleteRefDest.current.getPlace();
           setDestinationLocation(dest)
+          props.setDestination(dest);
           console.log({ dest });
          });
 
@@ -94,10 +97,10 @@ export const Inputs = (props) => {
       />
       </div>
 
-      <button
+      {/* <button
       onClick={handleSubmitClick}>
           Search
-      </button>
+      </button> */}
 
       
     </form>
