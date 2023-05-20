@@ -57,13 +57,11 @@ export const Inputs = (props) => {
 
     }, []);
 
-
-
   return (
 
     <form className = "input_forms">
     <div>
-        <text> Source </text>
+        <text style={{ marginLeft: '1rem'}}> Source </text>
         <input
         style={{ marginLeft: '1rem', marginBottom: '10px', justifyContent: "center", alignContent: "center" }} 
         ref= {inputRefSource}

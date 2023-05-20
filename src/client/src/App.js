@@ -143,12 +143,12 @@ function App() {
   return (
     
     <form onClick={handleSubmit}>
-    <div style={{justifyContent: "center", alignContent: "center"}}>
+    <div style={{justifyContent: "center", alignContent: "center", marginBottom: '10rem'}}>
     <Heading/>
-    <Inputs setHiddenState = {setHiddenState} setDestination = {setDestination} setOrigin = {setOrigin}/>
+    <Inputs  setHiddenState = {setHiddenState} setDestination = {setDestination} setOrigin = {setOrigin}/>
       {/* <Paths/> */}
       {console.log(isHidden)}
-      <button
+      <button style={{ marginLeft: '1rem'}}
       onClick={handleSubmitClick}>
           Search
       </button>
@@ -158,7 +158,7 @@ function App() {
       </button>
     </div>
 
-    <div className = "container">
+    <div className = "container" style={{ height: '650px', width: '1500px', marginTop: '2rem'}}>
       {/* <div className= "half left"> */}
       {/* <Inputs setHiddenState = {setHiddenState} setDestination = {setDestination} setOrigin = {setOrigin}/> */}
       {/* <Paths/> */}
@@ -170,18 +170,18 @@ function App() {
       {/* </div> */}
       {/* <MapComponent/> */}
       
-      {isHidden == false? (<div className = "half right"> <div style={{ height: '400px', width: '900px' }}>;
-  <GoogleMap
-        center={center}
-        zoom={15}
-        mapContainerStyle={{ width: '100%', height: '100%' }}>
-        <Marker position={center} /> 
-        {console.log("res is printing")}
-        {console.log(directionsResponse)}
-        {directionsResponse && (
-            <DirectionsRenderer directions={directionsResponse} />
-          )}
-  </GoogleMap>
+      {isHidden == false? (<div className = "half right"> <div style={{ height: '650px', width: '1500px' }}>
+      <GoogleMap
+            center={center}
+            zoom={15}
+            mapContainerStyle={{ width: '100%', height: '100%'}}>
+            <Marker position={center} /> 
+            {console.log("res is printing")}
+            {console.log(directionsResponse)}
+            {directionsResponse && (
+                <DirectionsRenderer directions={directionsResponse} />
+              )}
+      </GoogleMap>
   
 </div>
  </div>): null}
