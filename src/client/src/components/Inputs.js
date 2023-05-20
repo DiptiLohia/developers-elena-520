@@ -23,8 +23,6 @@ export const Inputs = (props) => {
   //   props.setHiddenState(false);
   // }
 
-
-
     const autoCompleteRefSource = useRef();
     const inputRefSource = useRef();
     const autoCompleteRefDest = useRef();
@@ -65,37 +63,42 @@ export const Inputs = (props) => {
 
     <form className = "input_forms">
     <div>
-      <input
-      ref= {inputRefSource}
-      id = "source"
-        label="source"
-        type="address"
-        name="source"
-        onChange={handleSourceChange}
-        placeholder="Enter Source"
-        className="mbsc-col-12 mbsc-col-lg-6"
-      />
-        </div>
-        <div>
-      <input
-        ref= {inputRefDest}
-        label="destination"
-        type="address"
-        name="destination"
-        onChange={handleDestinationChange}
-        placeholder="Enter Destination"
-
-      />
-      </div>
-      <div>
-      <input
-        type="integer"
-        name="valueX"
-        value={valueOfX}
-        onChange={handleValueXChange}
-        placeholder="Enter value of x"
-      />
-      </div>
+        <text> Source </text>
+        <input
+        style={{ marginLeft: '1rem', marginBottom: '10px', justifyContent: "center", alignContent: "center" }} 
+        ref= {inputRefSource}
+        id = "source"
+          label="source"
+          type="address"
+          name="source"
+          onChange={handleSourceChange}
+          placeholder="Enter Source"
+          className="mbsc-col-12 mbsc-col-lg-6"
+        />
+    {/* </div>
+    <div> */}
+        <text style={{ marginLeft: '1rem'}}> Destination </text>
+        <input
+          style={{ marginLeft: '1rem', marginBottom: '10px'}} 
+          ref= {inputRefDest}
+          label="destination"
+          type="address"
+          name="destination"
+          onChange={handleDestinationChange}
+          placeholder="Enter Destination"
+        />
+    {/* </div>
+    <div> */}
+        <text style={{ marginLeft: '1rem'}}> Elevation </text>
+        <input
+          style={{ marginLeft: '1rem', marginBottom: '10px' }} 
+          type="integer"
+          name="valueX"
+          value={valueOfX}
+          onChange={handleValueXChange}
+          placeholder="Enter value of x"
+        />
+    </div>
 
       {/* <button
       onClick={handleSubmitClick}>

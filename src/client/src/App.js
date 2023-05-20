@@ -80,7 +80,6 @@ function App() {
     // console.log(results);
 
   };
-  
 
   useEffect(() => {
     // Action to perform after state update
@@ -90,20 +89,33 @@ function App() {
   return (
     
     <form onClick={handleSubmit}>
-    <div>
+    <div style={{justifyContent: "center", alignContent: "center"}}>
     <Heading/>
-    </div>
-    <div className = "container">
-      <div className= "half left">
-      <Inputs setHiddenState = {setHiddenState} setDestination = {setDestination} setOrigin = {setOrigin}/>
+    <Inputs setHiddenState = {setHiddenState} setDestination = {setDestination} setOrigin = {setOrigin}/>
       {/* <Paths/> */}
       {console.log(isHidden)}
-      </div>
-      {/* <MapComponent/> */}
       <button
       onClick={handleSubmitClick}>
           Search
       </button>
+      <button style={{marginLeft: '1rem'}}
+      onClick={handleSubmitClick}>
+          Reset
+      </button>
+    </div>
+
+    <div className = "container">
+      {/* <div className= "half left"> */}
+      {/* <Inputs setHiddenState = {setHiddenState} setDestination = {setDestination} setOrigin = {setOrigin}/> */}
+      {/* <Paths/> */}
+      {/* {console.log(isHidden)}
+      <button
+      onClick={handleSubmitClick}>
+          Search
+      </button> */}
+      {/* </div> */}
+      {/* <MapComponent/> */}
+      
       {isHidden == false? (<div className = "half right"> <div style={{ height: '400px', width: '900px' }}>;
   <GoogleMap
         center={center}
