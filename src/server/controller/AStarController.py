@@ -1,5 +1,5 @@
 from server.controller.BaseController import *
-
+from server.model.Algorithms import AstarRoute
 
 class AStarController(BaseController):
     def __init__(self):
@@ -45,4 +45,5 @@ class AStarController(BaseController):
         """
         Manipulates the route model by setting the algorithm and generating paths based on the provided parameters.
         """        
-        print("AStar")
+        self.route_model.update_algorithm(AstarRoute)
+        self.route_model.compute_paths(self.start_location, self.end_location, self.path_limit, self.elevation_strategy)

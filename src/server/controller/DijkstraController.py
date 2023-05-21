@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from server.controller.BaseController import *
+from server.model.Algorithms import DijkstraRoute
 
 class DijkstraController(BaseController):
     def __init__(self):
@@ -33,4 +34,5 @@ class DijkstraController(BaseController):
 
     def manipulate_route_model(self):
         # Set the algorithm of the route model
-        print("Dijkstra")
+        self.route_model.update_algorithm(DijkstraRoute)
+        self.route_model.compute_paths(self.start_location, self.end_location, self.path_limit, self.elevation_strategy)
