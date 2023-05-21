@@ -2,10 +2,6 @@ from abc import ABC, abstractmethod
 
 
 class BaseController(ABC):
-    """
-    This is an abstract controller which defines functionality that needs to be implemented by child classes.
-    """
-
     def __init__(self):
         self.model = None  # Reference to the model object
         self.observer = None  # Reference to the observer object

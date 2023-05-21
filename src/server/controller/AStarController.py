@@ -2,10 +2,6 @@ from server.controller.BaseController import *
 
 
 class AStarController(BaseController):
-    """
-    This controller manipulates the route model to compute the shortest route, considering elevation,
-    using the AStar algorithm strategy.
-    """
     def __init__(self):
         super().__init__()
         self.route_model = None  # The route model used for computing the shortest route

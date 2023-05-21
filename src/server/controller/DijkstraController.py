@@ -2,10 +2,6 @@ from abc import ABC, abstractmethod
 from server.controller.BaseController import *
 
 class DijkstraController(BaseController):
-    """
-    This controller manipulates model to compute shortest route considering elevation into account and
-    uses Dijkstra algorithm strategy.
-    """
     def __init__(self):
         super().__init__()
         self.route_model = None  # The route model used for computing the shortest route
@@ -16,18 +12,23 @@ class DijkstraController(BaseController):
         self.path_limit = None  # The maximum number of paths to generate
 
     def set_route_model(self, route_model):
+        # Set the route model for the controller
         self.route_model = route_model
 
     def set_elevation_strategy(self, elevation_strategy):
+        # Set the elevation strategy for the controller
         self.elevation_strategy = elevation_strategy
 
     def set_start_location(self, start_location):
+        # Set the start location for the controller
         self.start_location = start_location
 
     def set_end_location(self, end_location):
+        # Set the end location for the controller
         self.end_location = end_location
 
     def set_path_limit(self, path_limit):
+        # Set the path limit for the controller
         self.path_limit = path_limit
 
     def manipulate_route_model(self):
