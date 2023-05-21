@@ -120,12 +120,12 @@ export const Inputs = (props) => {
 
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "10px" }}>
           <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
-            <input type="radio" value="min" name="elevationType" style={{ marginRight: "0.5rem" }} /> Minimum Elevation
-            <input type="radio" value="max" name="elevationType" style={{ marginRight: "0.5rem" }} /> Maximum Elevation
+            <input type="radio" value="min" name="elevationType"  onChange = {onValueChangeElevation} style={{ marginRight: "0.5rem" }} /> Minimum Elevation
+            <input type="radio" value="max" name="elevationType" onChange = {onValueChangeElevation} style={{ marginRight: "0.5rem" }} /> Maximum Elevation
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <input type="radio" value="AStar" name="AlgorithmType" style={{ marginRight: "0.5rem" }} /> A* Algorithm
-            <input type="radio" value="Dijkstra" name="AlgorithmType" style={{ marginRight: "0.5rem" }} /> Dijkstra Algorithm
+            <input type="radio" value="AStar" name="AlgorithmType" onChange = {onValueChangeAlgorithm} style={{ marginRight: "0.5rem" }} /> A* Algorithm
+            <input type="radio" value="Dijkstra" name="AlgorithmType" onChange = {onValueChangeAlgorithm} style={{ marginRight: "0.5rem" }} /> Dijkstra Algorithm
           </div>
         </div>
 

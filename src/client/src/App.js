@@ -22,19 +22,23 @@ function App() {
   const [pathPoints, setPathPoints] = useState(null);
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [threshold, setThreshold] = useState("");
-  const [algoithm, setAlgorithm] = useState("");
+  const [algorithm, setAlgorithm] = useState("");
   const [elevation ,setElevation] = useState("");
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const setHiddenState = (hidden) => {
     setIsHidden(hidden);
   };
+
+
 
   const fetchData = (src, dest) => {
     const responseToBackend = {
       text_origin_address: [src.geometry.location.lat(), src.geometry.location.lng()],
       text_dest_address: [dest.geometry.location.lat(), dest.geometry.location.lng()],
       min_max: elevation,
-      algorithm: algoithm,
+      algorithm: algorithm,
       path_limit: threshold
     };
   
@@ -54,6 +58,9 @@ function App() {
       }
     });
   };
+
+
+
 
   function parseBackendResponse(jsonData)
   {
@@ -86,6 +93,7 @@ function App() {
       if (status === 'OK') {
         console.log("response",response);
         setDirectionsResponse(response);
+        setIsLoading(false);
         console.log("direction response:",directionsResponse);
       } else {
         console.error('Directions request failed due to ' + status);
@@ -96,15 +104,28 @@ function App() {
   // eslint-disable-next-line no-undef
   const directionService =  new google.maps.DirectionsService()
    async function handleSubmitClick(e){
+    setIsLoading(true);
     e.preventDefault();
     setIsHidden(false);
     fetchData(origin,destination)
+
   };
 
+  useEffect(() => {
+    console.log("isDisabled");
+
+    // Action to perform after state update
+    if(origin!==null && destination!==null && threshold!=="" && algorithm!=="" && elevation!=="")
+    {
+      console.log("isDisabled", isDisabled);
+      setIsDisabled(false);
+    }
+  }, [origin,destination,threshold,algorithm,elevation]);
   useEffect(() => {
     // Action to perform after state update
     console.log('State updated:', directionsResponse);
     console.log('state path:', pathPoints);
+
   }, [directionsResponse, pathPoints]);
 
   const resetStates = () => {
@@ -140,7 +161,7 @@ function App() {
         setElevation = {setElevation} />
       </div>
       <div style={{ display: "flex", alignItems: "center", marginLeft: '1rem', justifyContent: "center", marginTop:"10px", marginBottom:"10px" }}>
-        <button onClick={handleSubmitClick} style={{ backgroundColor: "#8a2be2", color: "#fff", padding: "0.5rem 1rem", border: "none", borderRadius: "4px", cursor: "pointer" }}>
+        <button onClick={handleSubmitClick} disabled={isDisabled} style={{ backgroundColor: isDisabled ? 'gray': "#8a2be2", color: "#fff", padding: "0.5rem 1rem", border: "none", borderRadius: "4px", cursor: "pointer" }}>
           Search
         </button>
         <button onClick={resetStates} style={{ backgroundColor: "#8a2be2", color: "#fff", padding: "0.5rem 1rem", border: "none", borderRadius: "4px", cursor: "pointer", marginLeft: '1rem' }}>
@@ -149,8 +170,14 @@ function App() {
       </div>
     </div>
     </div>
-
+      
     <div className="container" style={{ height: 'calc(100vh - 2rem)', width: '100%', overflow: 'hidden' }}>
+    {isLoading ? (
+        <div>
+        <h2>Loading...</h2>
+        {/* Add any loading animation or spinner here */}
+      </div>
+      ) : (
     <div className="half right">
       <div style={{ height: '100%', width: '100%', overflow: 'hidden' }}>
         <GoogleMap
@@ -162,7 +189,7 @@ function App() {
           {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
         </GoogleMap>
       </div>
-    </div>
+    </div>)}
     </div>
     </form>
     
