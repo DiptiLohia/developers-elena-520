@@ -19,7 +19,7 @@ class Model:
         self.observer = observer
 
     def update_algorithm_object(self):
-        self.obj_algorithm = self.algorithm(self.graph, self.shortest_path_information.retrieve_distance(), self.path_limit, self.elevation_strategy, self.shortest_path_information.retrieve_starting_point(), self.shortest_path_information.retrieve_ending_point(), self.shortest_path_information.retrieve_gain())
+        self.obj_algorithm = self.algorithm(self.graph, self.shortest_path_information.get_distance(), self.path_limit, self.elevation_strategy, self.shortest_path_information.get_origin_location(), self.shortest_path_information.get_destination_location(), self.shortest_path_information.get_gain())
 
     def update_algorithm(self, algorithm):
         self.algorithm = algorithm

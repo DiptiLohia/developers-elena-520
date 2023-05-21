@@ -29,12 +29,18 @@ class NotificationHandler:
         self.output_data = {}
 
     def notify_route_update(self, optimal_route=None, elevation_route=None, initial_location=None, destination_location=None):
-        self.output_data = {ELEV_ROUTE: create_route_json(elevation_route.modify_path()), SHORTEST_ROUTE: create_route_json(optimal_route.modify_path()),
-                            SHORTEST_DIST: optimal_route.modify_distance(), SHORTEST_GAIN: optimal_route.modify_gain(),
-                            SHORTEST_DROP: optimal_route.modify_drop(), START: initial_location, END: destination_location,
-                            ELEV_DIST: elevation_route.modify_distance(), ELEV_GAIN: elevation_route.modify_gain(), ELEV_DROP: elevation_route.modify_drop()}
+        self.output_data = {ELEV_ROUTE: create_route_json(elevation_route.get_route()),
+                            SHORTEST_ROUTE: create_route_json(optimal_route.get_route()),
+                            SHORTEST_DIST: optimal_route.get_distance(), 
+                            SHORTEST_GAIN: optimal_route.get_gain(),
+                            SHORTEST_DROP: optimal_route.get_drop(), 
+                            START: initial_location, 
+                            END: destination_location,
+                            ELEV_DIST: elevation_route.get_distance(), 
+                            ELEV_GAIN: elevation_route.get_gain(), 
+                            ELEV_DROP: elevation_route.get_drop()}
         
-        if len(elevation_route.modify_path()) == 0:
+        if len(elevation_route.get_route()) == 0:
             self.output_data[BOOL_FLAG] = 1
         else:
             self.output_data[BOOL_FLAG] = 2
