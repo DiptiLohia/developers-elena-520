@@ -6,11 +6,7 @@ import React from 'react';
 import { MapComponent } from "./components/MapComponent";
 import {useState} from 'react';
 import { useRef, useEffect } from 'react';
-// import jsonData from './backend_path.json';
 import $ from 'jquery';
-
-
-
 import {
   useJsApiLoader,
   GoogleMap,
@@ -19,7 +15,6 @@ import {
   DirectionsRenderer,
 } from '@react-google-maps/api'
 import { calculateSize } from "@iconify/react";
-
 
 const center = { lat: 48.8584, lng: 2.2945 }
 var waypoints = [];
@@ -63,41 +58,11 @@ function App() {
     });
   };
 
-  // function sendResponseToBackend(origin, destination)
-  // {
-  //   var responseToBackend = {
-  //     "text_origin_address": [origin.geometry.location.lat(),origin.geometry.location.lng()],
-  //     "text_dest_address": [destination.geometry.location.lat(),destination.geometry.location.lng()],
-  //     "min_max": "max",
-  //     "algorithm": "AStar",
-  //     "path_limit": "23"
-  // }
-  // responseToBackend = JSON.stringify(responseToBackend);
-
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "/path_via_address",
-  //     data: responseToBackend,
-  //     success: function(data) {
-  //     // plotRoute(data, "address")
-  //     // updateOutputs(data)
-  //     },
-  //     dataType: "json"
-  // });
-
-  // console.log("printing response to backend" ,responseToBackend )
-  // }
-
-
   function parseBackendResponse(jsonData)
   {
-    // const  = jsonData;
-    // setPathPoints(data.elev_path_route.coordinates);
     jsonData = JSON.parse(jsonData)
     console.log("#######$$$$");
     console.log(jsonData, typeof(jsonData));
-    // console.log(jsonData.elev_path_route.geometry.coordinates);
-    // setPathPoints(jsonData.elev_path_route.geometry.coordinates);
     console.log("#######$$$$");
     
     for(var i = 0; i<jsonData.elev_path_route.geometry.coordinates.length; i++)
@@ -131,35 +96,12 @@ function App() {
     });
   }
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("refresh prevented");
-  // };
-  var res = null;
-
   // eslint-disable-next-line no-undef
   const directionService =  new google.maps.DirectionsService()
-  let results = null;
-
    async function handleSubmitClick(e){
     e.preventDefault();
     setIsHidden(false);
     fetchData(origin,destination)
-    // parseBackendResponse(routeData);
-    // console.log(waypoints[0].location)
-    // console.log(waypoints[waypoints.length - 1].location);
-
-  //   if(destination!==null && origin!==null){
-  //     console.log("******");
-  //     console.log(origin);
-  //     console.log("******");
-  //     results =  await directionService.route({
-  //       origin: {lat: origin.geometry.location.lat(), lng: origin.geometry.location.lng()},
-  //       destination: {lat:destination.geometry.location.lat(), lng:destination.geometry.location.lng()},
-  //       // eslint-disable-next-line no-undef
-  //       travelMode: google.maps.TravelMode.WALKING,
-  //     })
-  // }
   };
 
   useEffect(() => {
