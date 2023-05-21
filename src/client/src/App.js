@@ -8,15 +8,12 @@ import {useState} from 'react';
 import { useRef, useEffect } from 'react';
 import $ from 'jquery';
 import {
-  useJsApiLoader,
   GoogleMap,
   Marker,
-  Autocomplete,
   DirectionsRenderer,
 } from '@react-google-maps/api'
-import { calculateSize } from "@iconify/react";
 
-const center = { lat: 48.8584, lng: 2.2945 }
+const center = { lat: 42.3867637, lng: -72.5322402 }
 var waypoints = [];
 function App() {
   const [isHidden, setIsHidden] = useState(true)
@@ -110,6 +107,16 @@ function App() {
     console.log('state path:', pathPoints);
   }, [directionsResponse, pathPoints]);
 
+  const resetStates = () => {
+    setOrigin(null);
+    setDestination(null);
+    setPathPoints(null);
+    setDirectionsResponse(null);
+    setThreshold("");
+    setAlgorithm("");
+    setElevation("");
+  };
+
   return (
     
     <form>
@@ -136,7 +143,7 @@ function App() {
         <button onClick={handleSubmitClick} style={{ backgroundColor: "#8a2be2", color: "#fff", padding: "0.5rem 1rem", border: "none", borderRadius: "4px", cursor: "pointer" }}>
           Search
         </button>
-        <button onClick={handleSubmitClick} style={{ backgroundColor: "#8a2be2", color: "#fff", padding: "0.5rem 1rem", border: "none", borderRadius: "4px", cursor: "pointer", marginLeft: '1rem' }}>
+        <button onClick={resetStates} style={{ backgroundColor: "#8a2be2", color: "#fff", padding: "0.5rem 1rem", border: "none", borderRadius: "4px", cursor: "pointer", marginLeft: '1rem' }}>
           Reset
         </button>
       </div>

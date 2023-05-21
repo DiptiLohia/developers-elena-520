@@ -72,6 +72,7 @@ export const Inputs = (props) => {
           border: '1px solid #ccc',
           outline: 'none',
           fontSize: '14px',
+          width: '200px', 
         }}
         ref= {inputRefSource}
         id = "source"
@@ -91,6 +92,7 @@ export const Inputs = (props) => {
             border: '1px solid #ccc',
             outline: 'none',
             fontSize: '14px',
+            width: '200px', 
           }}
           ref= {inputRefDest}
           label="destination"
@@ -108,11 +110,12 @@ export const Inputs = (props) => {
             border: '1px solid #ccc',
             outline: 'none',
             fontSize: '14px',
+            width: '200px', 
           }}
           type="integer"
           name="pathLimit"
           onChange={handlePathLimit}
-          placeholder="Enter path limit"
+          placeholder="Enter path limit (Max 100)"
         />
 
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "10px" }}>
