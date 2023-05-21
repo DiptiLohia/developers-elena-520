@@ -7,6 +7,7 @@ import { MapComponent } from "./components/MapComponent";
 import {useState} from 'react';
 import { useRef, useEffect } from 'react';
 import jsonData from './backend_path.json';
+import $ from 'jquery';
 
 
 import {
@@ -26,14 +27,65 @@ function App() {
   const [origin,setOrigin] = useState(null);
   const [destination, setDestination] = useState(null)
   const [pathPoints, setPathPoints] = useState(null);
+  const [pathLimit, setPathLimit] = useState(null);
+  const [elevationStrategy, setElevationStrategy] = useState(null);
   const setHiddenState = (hidden) => {
     setIsHidden(hidden);
   };
 
+  const fetchData = (src, dest) => {
+    const responseToBackend = {
+      text_origin_address: [src.geometry.location.lat(), src.geometry.location.lng()],
+      text_dest_address: [dest.geometry.location.lat(), dest.geometry.location.lng()],
+      min_max: 'max',
+      algorithm: 'AStar',
+      path_limit: '10'
+    };
+  
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:5000/get_elena_path',
+      data: JSON.stringify(responseToBackend),
+      contentType: 'application/json',
+      success: function (data) {
+        console.log('Response:', data);
+        // Handle the path with datapoints
+      },
+      error: function (error) {
+        console.error('Error:', error);
+        // Handle the error
+      }
+    });
+  };
+
+  function sendResponseToBackend(origin, destination)
+  {
+    var responseToBackend = {
+      "text_origin_address": [origin.geometry.location.lat(),origin.geometry.location.lng()],
+      "text_dest_address": [destination.geometry.location.lat(),destination.geometry.location.lng()],
+      "min_max": "max",
+      "algorithm": "AStar",
+      "path_limit": "23"
+  }
+  responseToBackend = JSON.stringify(responseToBackend);
+
+    $.ajax({
+      type: "POST",
+      url: "/path_via_address",
+      data: responseToBackend,
+      success: function(data) {
+      // plotRoute(data, "address")
+      // updateOutputs(data)
+      },
+      dataType: "json"
+  });
+
+  console.log("printing response to backend" ,responseToBackend )
+  }
+
 
   function parseBackendResponse(jsonData)
   {
-
     // const  = jsonData;
     // setPathPoints(data.elev_path_route.coordinates);
     console.log("#######$$$$");
@@ -53,7 +105,6 @@ function App() {
       waypoints.push(tempList2);
       }
     }
-
     console.log(waypoints);
   }
 
@@ -72,6 +123,7 @@ function App() {
    async function handleSubmitClick(e){
     e.preventDefault();
     setIsHidden(false);
+    fetchData(origin,destination)
     parseBackendResponse(jsonData);
     console.log(waypoints[0].location)
     console.log(waypoints[waypoints.length - 1].location);
@@ -88,22 +140,6 @@ function App() {
   //     })
   // }
   
-  // const waypoints = [
-  //   { location: { lat: -72.5329517, lng: 42.3929607 } },
-  //   { location: { lat: -72.532451, lng: 42.3932468 } },
-  //   { location: { lat: -72.5323138, lng: 42.3933361 } },
-  //   { location: { lat: -72.5321183, lng: 42.3934429 } },
-  //   { location: { lat: -72.5313177, lng: 42.3937298 } },
-  //   { location: { lat: -72.5308852, lng: 42.3936275 } },
-  //   { location: { lat: -72.5307812, lng: 42.3937401 } },
-  //   { location: { lat: -72.466881, lng: 442.422649} }
-
-  //   // Add more waypoints as needed
-  // ]
-
-//     waypoints: waypoints.slice(1, waypoints.length - 1),
-
-
   const request = {
     // origin: {lat: origin.geometry.location.lat(), lng: origin.geometry.location.lng()},
     // destination: {lat:destination.geometry.location.lat(), lng:destination.geometry.location.lng()},
@@ -171,17 +207,17 @@ function App() {
       {/* <MapComponent/> */}
       
       {isHidden == false? (<div className = "half right"> <div style={{ height: '650px', width: '1500px' }}>
-      <GoogleMap
-            center={center}
-            zoom={15}
-            mapContainerStyle={{ width: '100%', height: '100%'}}>
-            <Marker position={center} /> 
-            {console.log("res is printing")}
-            {console.log(directionsResponse)}
-            {directionsResponse && (
-                <DirectionsRenderer directions={directionsResponse} />
-              )}
-      </GoogleMap>
+  <GoogleMap
+        center={center}
+        zoom={15}
+        mapContainerStyle={{ width: '100%', height: '100%'}}>
+        <Marker position={center} /> 
+        {console.log("res is printing")}
+        {console.log(directionsResponse)}
+        {directionsResponse && (
+            <DirectionsRenderer directions={directionsResponse} />
+          )}
+  </GoogleMap>
   
 </div>
  </div>): null}
