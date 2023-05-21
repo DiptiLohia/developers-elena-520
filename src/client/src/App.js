@@ -6,8 +6,9 @@ import React from 'react';
 import { MapComponent } from "./components/MapComponent";
 import {useState} from 'react';
 import { useRef, useEffect } from 'react';
-import jsonData from './backend_path.json';
+// import jsonData from './backend_path.json';
 import $ from 'jquery';
+
 
 
 import {
@@ -29,6 +30,9 @@ function App() {
   const [pathPoints, setPathPoints] = useState(null);
   const [pathLimit, setPathLimit] = useState(null);
   const [elevationStrategy, setElevationStrategy] = useState(null);
+  const [routeData, setRouteData] = useState(null);
+  const [directionsResponse, setDirectionsResponse] = useState(null)
+
   const setHiddenState = (hidden) => {
     setIsHidden(hidden);
   };
@@ -48,6 +52,7 @@ function App() {
       data: JSON.stringify(responseToBackend),
       contentType: 'application/json',
       success: function (data) {
+        parseBackendResponse(data);
         console.log('Response:', data);
         // Handle the path with datapoints
       },
@@ -58,39 +63,41 @@ function App() {
     });
   };
 
-  function sendResponseToBackend(origin, destination)
-  {
-    var responseToBackend = {
-      "text_origin_address": [origin.geometry.location.lat(),origin.geometry.location.lng()],
-      "text_dest_address": [destination.geometry.location.lat(),destination.geometry.location.lng()],
-      "min_max": "max",
-      "algorithm": "AStar",
-      "path_limit": "23"
-  }
-  responseToBackend = JSON.stringify(responseToBackend);
+  // function sendResponseToBackend(origin, destination)
+  // {
+  //   var responseToBackend = {
+  //     "text_origin_address": [origin.geometry.location.lat(),origin.geometry.location.lng()],
+  //     "text_dest_address": [destination.geometry.location.lat(),destination.geometry.location.lng()],
+  //     "min_max": "max",
+  //     "algorithm": "AStar",
+  //     "path_limit": "23"
+  // }
+  // responseToBackend = JSON.stringify(responseToBackend);
 
-    $.ajax({
-      type: "POST",
-      url: "/path_via_address",
-      data: responseToBackend,
-      success: function(data) {
-      // plotRoute(data, "address")
-      // updateOutputs(data)
-      },
-      dataType: "json"
-  });
+  //   $.ajax({
+  //     type: "POST",
+  //     url: "/path_via_address",
+  //     data: responseToBackend,
+  //     success: function(data) {
+  //     // plotRoute(data, "address")
+  //     // updateOutputs(data)
+  //     },
+  //     dataType: "json"
+  // });
 
-  console.log("printing response to backend" ,responseToBackend )
-  }
+  // console.log("printing response to backend" ,responseToBackend )
+  // }
 
 
   function parseBackendResponse(jsonData)
   {
     // const  = jsonData;
     // setPathPoints(data.elev_path_route.coordinates);
+    jsonData = JSON.parse(jsonData)
     console.log("#######$$$$");
-    console.log(jsonData.elev_path_route.geometry.coordinates);
-    setPathPoints(jsonData.elev_path_route.geometry.coordinates);
+    console.log(jsonData, typeof(jsonData));
+    // console.log(jsonData.elev_path_route.geometry.coordinates);
+    // setPathPoints(jsonData.elev_path_route.geometry.coordinates);
     console.log("#######$$$$");
     
     for(var i = 0; i<jsonData.elev_path_route.geometry.coordinates.length; i++)
@@ -106,15 +113,29 @@ function App() {
       }
     }
     console.log(waypoints);
+
+    const request = {
+      origin: waypoints[0].location,
+      destination: waypoints[waypoints.length - 1].location,
+      waypoints: waypoints.slice(1, waypoints.length - 1),
+      travelMode: 'WALKING'
+    };
+    directionService.route(request, function(response, status) {
+      if (status === 'OK') {
+        console.log("response",response);
+        setDirectionsResponse(response);
+        console.log("direction response:",directionsResponse);
+      } else {
+        console.error('Directions request failed due to ' + status);
+      }
+    });
   }
 
   const handleSubmit = (e) => {
-    console.log("here");
     e.preventDefault();
     console.log("refresh prevented");
   };
   var res = null;
-  const [directionsResponse, setDirectionsResponse] = useState(null)
 
   // eslint-disable-next-line no-undef
   const directionService =  new google.maps.DirectionsService()
@@ -124,9 +145,9 @@ function App() {
     e.preventDefault();
     setIsHidden(false);
     fetchData(origin,destination)
-    parseBackendResponse(jsonData);
-    console.log(waypoints[0].location)
-    console.log(waypoints[waypoints.length - 1].location);
+    // parseBackendResponse(routeData);
+    // console.log(waypoints[0].location)
+    // console.log(waypoints[waypoints.length - 1].location);
 
   //   if(destination!==null && origin!==null){
   //     console.log("******");
@@ -139,35 +160,6 @@ function App() {
   //       travelMode: google.maps.TravelMode.WALKING,
   //     })
   // }
-  
-  const request = {
-    // origin: {lat: origin.geometry.location.lat(), lng: origin.geometry.location.lng()},
-    // destination: {lat:destination.geometry.location.lat(), lng:destination.geometry.location.lng()},
-    origin: waypoints[0].location,
-    destination: waypoints[waypoints.length - 1].location,
-    waypoints: waypoints.slice(1, waypoints.length - 1),
-    travelMode: 'WALKING'
-  };
-  directionService.route(request, function(response, status) {
-    if (status === 'OK') {
-      // Process the response
-      // const directionsRenderer = new google.maps.DirectionsRenderer();
-      // directionsRenderer.setMap(map);
-      // directionsRenderer.setDirections(response);
-      console.log("here is response");
-      console.log(response);
-      setDirectionsResponse(response);
-      // res = response;
-      console.log("####");
-      console.log(directionsResponse);
-      console.log("####");
-    } else {
-      // Handle errors
-      console.error('Directions request failed due to ' + status);
-    }
-  });
-    // console.log("here is result");
-    // console.log(results);
   };
 
   useEffect(() => {
@@ -206,7 +198,7 @@ function App() {
       {/* </div> */}
       {/* <MapComponent/> */}
       
-      {isHidden == false? (<div className = "half right"> <div style={{ height: '650px', width: '1500px' }}>
+      <div className = "half right"> <div style={{ height: '650px', width: '1500px' }}>
   <GoogleMap
         center={center}
         zoom={15}
@@ -220,7 +212,7 @@ function App() {
   </GoogleMap>
   
 </div>
- </div>): null}
+ </div>
 
     </div>
     </form>
