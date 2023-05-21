@@ -28,10 +28,10 @@ function App() {
   const [origin,setOrigin] = useState(null);
   const [destination, setDestination] = useState(null)
   const [pathPoints, setPathPoints] = useState(null);
-  const [pathLimit, setPathLimit] = useState(null);
-  const [elevationStrategy, setElevationStrategy] = useState(null);
-  const [routeData, setRouteData] = useState(null);
-  const [directionsResponse, setDirectionsResponse] = useState(null)
+  const [directionsResponse, setDirectionsResponse] = useState(null);
+  const [threshold, setThreshold] = useState("");
+  const [algoithm, setAlgorithm] = useState("");
+  const [elevation ,setElevation] = useState("");
 
   const setHiddenState = (hidden) => {
     setIsHidden(hidden);
@@ -41,9 +41,9 @@ function App() {
     const responseToBackend = {
       text_origin_address: [src.geometry.location.lat(), src.geometry.location.lng()],
       text_dest_address: [dest.geometry.location.lat(), dest.geometry.location.lng()],
-      min_max: 'max',
-      algorithm: 'AStar',
-      path_limit: '10'
+      min_max: elevation,
+      algorithm: algoithm,
+      path_limit: threshold
     };
   
     $.ajax({
@@ -131,10 +131,10 @@ function App() {
     });
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("refresh prevented");
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("refresh prevented");
+  // };
   var res = null;
 
   // eslint-disable-next-line no-undef
@@ -170,10 +170,17 @@ function App() {
 
   return (
     
-    <form onClick={handleSubmit}>
+    // <form onClick={handleSubmit}>
+    <form>
     <div style={{justifyContent: "center", alignContent: "center", marginBottom: '10rem'}}>
     <Heading/>
-    <Inputs  setHiddenState = {setHiddenState} setDestination = {setDestination} setOrigin = {setOrigin}/>
+    <Inputs  
+    setHiddenState = {setHiddenState}
+    setDestination = {setDestination} 
+    setOrigin = {setOrigin} 
+    setThreshold = {setThreshold}
+    setAlgorithm = {setAlgorithm}
+    setElevation = {setElevation} />
       {/* <Paths/> */}
       {console.log(isHidden)}
       <button style={{ marginLeft: '1rem'}}
