@@ -26,6 +26,7 @@ function App() {
   const [elevation ,setElevation] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [thresholdError, setThresholdError] = useState("");
 
   const setHiddenState = (hidden) => {
     setIsHidden(hidden);
@@ -104,11 +105,16 @@ function App() {
   // eslint-disable-next-line no-undef
   const directionService =  new google.maps.DirectionsService()
    async function handleSubmitClick(e){
-    setIsLoading(true);
-    e.preventDefault();
-    setIsHidden(false);
-    fetchData(origin,destination)
-
+    if(!isNaN(threshold) && threshold <= 100){
+      setIsDisabled(true);
+      setIsLoading(true);
+      e.preventDefault();
+      setIsHidden(false);
+      fetchData(origin,destination)
+    }else {
+      e.preventDefault();
+      setThresholdError("Threshold must be a number and should not exceed 100");
+    }
   };
 
   useEffect(() => {
@@ -141,8 +147,11 @@ function App() {
   return (
     
     <form>
-    <div style={{justifyContent: "center", alignContent: "center"}}>
-    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", backgroundColor: "#e0e0e0", padding: "10px" }}>
+    <div style={{display: 'flex', justifyContent: "center", alignContent: "center", backgroundColor: "#e0e0e0",}}>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: '#e0e0e0', padding: '10px', marginRight: 'auto' }}>
+    <Paths/>
+    </div>
+    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "10px" }}>
       <Heading/>
       <div
       style={{
@@ -168,29 +177,65 @@ function App() {
           Reset
         </button>
       </div>
+      {thresholdError && (
+        <p style={{ color: 'red', textAlign: 'center', fontSize: '12px' }}>
+          {thresholdError}
+        </p>
+      )}
+    </div>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: '#e0e0e0', padding: '10px', marginLeft: 'auto', marginRight:"1rem" }}>
+      <span style={{ marginBottom:"10px"}}>Shortest Path Metrics:</span>
+      <div style={{ backgroundColor: '#fff', padding: '10px', borderRadius: '4px', marginBottom: '5px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ marginRight:"10px" }}>EleNa Path distance:</span>
+          <span>40.30202</span>
+        </div>
+      </div>
+      <div style={{ backgroundColor: '#fff', padding: '10px', borderRadius: '4px', marginBottom: '5px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ marginRight:"10px" }}>EleNa Path elevation gain:</span>
+          <span>40.30202</span>
+        </div>
+      </div>
+      <div style={{ backgroundColor: '#fff', padding: '10px', borderRadius: '4px', marginBottom: '5px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ marginRight:"10px" }}>Shortest Path distance:</span>
+          <span>40.30202</span>
+        </div>
+      </div>
+      <div style={{ backgroundColor: '#fff', padding: '10px', borderRadius: '4px', marginBottom: '5px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ marginRight:"10px" }}>Shortest Path elevation gain:</span>
+          <span>43420.3020002</span>
+        </div>
+      </div>
     </div>
     </div>
       
     <div className="container" style={{ height: 'calc(100vh - 2rem)', width: '100%', overflow: 'hidden' }}>
-    {isLoading ? (
-        <div>
-        <h2>Loading...</h2>
-        {/* Add any loading animation or spinner here */}
+  <div className="loader-container">
+    {isLoading && (
+      <div className="loader-overlay">
+        <div style={{ display: 'flex', alignItems: 'center', background: '#fff', borderRadius: '8px', padding: '10px' }}>
+          <div className="spinner"></div>
+          <p style={{ textAlign: 'center', marginTop: '1rem', color: '#8a2be2', marginLeft:"10px", fontSize:"20px" }}>Loading path...</p> 
+        </div>
       </div>
-      ) : (
+    )}
     <div className="half right">
-      <div style={{ height: '100%', width: '100%', overflow: 'hidden' }}>
+      <div className="map-container">
         <GoogleMap
           center={center}
           zoom={15}
-          mapContainerStyle={{ width: '100%', height: '100%' }}
+          mapContainerStyle={{ height: '100%', width: '100%' }}
         >
           <Marker position={center} />
           {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
         </GoogleMap>
       </div>
-    </div>)}
     </div>
+  </div>
+</div>
     </form>
     
   );

@@ -38,4 +38,45 @@
   }
 }
 
+.loader-container {
+  position: relative;
+  height: calc(100vh - 2rem);
+  width: 100%;
+  overflow: hidden;
+}
 
+.loader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.map-container {
+  height: 100%;
+  width: 100%;
+}
+
+.spinner {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 10px solid #f3f3f3;
+  border-top-color: #8a2be2;
+  animation: spinnerAnimation 1s infinite linear;
+}
+
+@keyframes spinnerAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
