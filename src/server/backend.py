@@ -20,13 +20,13 @@ def hello_world():
 @app.route('/get_elena_path', methods=['POST'])
 def get_routes_via_address():
     json_output = request.get_json(force=True)
-    start_address = json_output['text_origin_address']
-    end_address = json_output['text_dest_address']
+    start_address = json_output['origin_location']
+    end_address = json_output['destination_location']
     origin_point = tuple(start_address)
     destination_point = tuple(end_address)
     path_limit = float(json_output['path_limit'])
-    elevation_strategy = json_output['min_max']
-    algorithm = json_output['algorithm']
+    elevation_strategy = json_output['elevation_option']
+    algorithm = json_output['selected_algorithm']
     model = Model()
     view = NotificationHandler()
     model.add_observer(view)

@@ -36,10 +36,10 @@ function App() {
 
   const fetchData = (src, dest) => {
     const responseToBackend = {
-      text_origin_address: [src.geometry.location.lat(), src.geometry.location.lng()],
-      text_dest_address: [dest.geometry.location.lat(), dest.geometry.location.lng()],
-      min_max: elevation,
-      algorithm: algorithm,
+      origin_location: [src.geometry.location.lat(), src.geometry.location.lng()],
+      destination_location: [dest.geometry.location.lat(), dest.geometry.location.lng()],
+      elevation_option: elevation,
+      selected_algorithm: algorithm,
       path_limit: threshold
     };
   
@@ -70,11 +70,11 @@ function App() {
     console.log(jsonData, typeof(jsonData));
     console.log("#######$$$$");
     
-    for(var i = 0; i<jsonData.elev_path_route.geometry.coordinates.length; i++)
+    for(var i = 0; i<jsonData.path_elevation.shape.data_points.length; i++)
     {
       var tempList = {lat: 0 , lng: 0};
-      tempList.lat = jsonData.elev_path_route.geometry.coordinates[i][1];
-      tempList.lng = jsonData.elev_path_route.geometry.coordinates[i][0];
+      tempList.lat = jsonData.path_elevation.shape.data_points[i][1];
+      tempList.lng = jsonData.path_elevation.shape.data_points[i][0];
       var tempList2 = {location: null, stopover: false }
       tempList2.location = tempList;
 
