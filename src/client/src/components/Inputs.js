@@ -63,9 +63,16 @@ export const Inputs = (props) => {
   return (
     <form className = "input_forms">
     <div>
-        <text style={{ marginLeft: '1rem'}}> Source </text>
+        {/* <text style={{ marginLeft: '1rem'}}> Source </text> */}
         <input
-        style={{ marginLeft: '1rem', marginBottom: '10px', justifyContent: "center", alignContent: "center" }} 
+        style={{
+          marginLeft: '1rem',
+          padding: '0.5rem',
+          borderRadius: '4px',
+          border: '1px solid #ccc',
+          outline: 'none',
+          fontSize: '14px',
+        }}
         ref= {inputRefSource}
         id = "source"
           label="source"
@@ -75,9 +82,16 @@ export const Inputs = (props) => {
           placeholder="Enter Source"
           className="mbsc-col-12 mbsc-col-lg-6"
         />
-        <text style={{ marginLeft: '1rem'}}> Destination </text>
+        {/* <text style={{ marginLeft: '1rem'}}> Destination </text> */}
         <input
-          style={{ marginLeft: '1rem', marginBottom: '10px'}} 
+          style={{
+            marginLeft: '1rem',
+            padding: '0.5rem',
+            borderRadius: '4px',
+            border: '1px solid #ccc',
+            outline: 'none',
+            fontSize: '14px',
+          }}
           ref= {inputRefDest}
           label="destination"
           type="address"
@@ -85,24 +99,33 @@ export const Inputs = (props) => {
           onChange={handleDestinationChange}
           placeholder="Enter Destination"
         />
-        <text style={{ marginLeft: '1rem'}}> Elevation </text>
+        {/* <text style={{ marginLeft: '1rem'}}> Elevation </text> */}
         <input
-          style={{ marginLeft: '1rem', marginBottom: '10px' }} 
+          style={{
+            marginLeft: '1rem',
+            padding: '0.5rem',
+            borderRadius: '4px',
+            border: '1px solid #ccc',
+            outline: 'none',
+            fontSize: '14px',
+          }}
           type="integer"
           name="pathLimit"
           onChange={handlePathLimit}
           placeholder="Enter path limit"
         />
-    </div>
-    <div>
-    <div onChange = {onValueChangeElevation}>
-        <input type="radio" value="min" name="elevationType"  onChange = {onValueChangeElevation}/> Minimum Elevation
-        <input type="radio" value="max" name="elevationType"  onChange = {onValueChangeElevation}/> Maximum Elevation
-      </div>
-      <div onChange = {onValueChangeAlgorithm}>
-        <input type="radio" value="AStar" name="AlgorithmType"  onChange = {onValueChangeAlgorithm}/> A* Algo
-        <input type="radio" value="Dijkstra" name="AlgorithmType" onChange = {onValueChangeAlgorithm}/> Dijkstra Algo
-      </div>
+
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "10px" }}>
+          <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
+            <input type="radio" value="min" name="elevationType" style={{ marginRight: "0.5rem" }} /> Minimum Elevation
+            <input type="radio" value="max" name="elevationType" style={{ marginRight: "0.5rem" }} /> Maximum Elevation
+          </div>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <input type="radio" value="AStar" name="AlgorithmType" style={{ marginRight: "0.5rem" }} /> A* Algorithm
+            <input type="radio" value="Dijkstra" name="AlgorithmType" style={{ marginRight: "0.5rem" }} /> Dijkstra Algorithm
+          </div>
+        </div>
+
     </div>
 
     </form>

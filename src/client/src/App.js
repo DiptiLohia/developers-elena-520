@@ -170,57 +170,50 @@ function App() {
 
   return (
     
-    // <form onClick={handleSubmit}>
     <form>
-    <div style={{justifyContent: "center", alignContent: "center", marginBottom: '10rem'}}>
-    <Heading/>
-    <Inputs  
-    setHiddenState = {setHiddenState}
-    setDestination = {setDestination} 
-    setOrigin = {setOrigin} 
-    setThreshold = {setThreshold}
-    setAlgorithm = {setAlgorithm}
-    setElevation = {setElevation} />
-      {/* <Paths/> */}
-      {console.log(isHidden)}
-      <button style={{ marginLeft: '1rem'}}
-      onClick={handleSubmitClick}>
+    <div style={{justifyContent: "center", alignContent: "center"}}>
+    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", backgroundColor: "#e0e0e0", padding: "10px" }}>
+      <Heading/>
+      <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignContent: "center",
+        backgroundColor: "#e0e0e0",
+        padding: "10px",
+      }}>
+        <Inputs  
+        setHiddenState = {setHiddenState}
+        setDestination = {setDestination} 
+        setOrigin = {setOrigin} 
+        setThreshold = {setThreshold}
+        setAlgorithm = {setAlgorithm}
+        setElevation = {setElevation} />
+      </div>
+      <div style={{ display: "flex", alignItems: "center", marginLeft: '1rem', justifyContent: "center", marginTop:"10px", marginBottom:"10px" }}>
+        <button onClick={handleSubmitClick} style={{ backgroundColor: "#8a2be2", color: "#fff", padding: "0.5rem 1rem", border: "none", borderRadius: "4px", cursor: "pointer" }}>
           Search
-      </button>
-      <button style={{marginLeft: '1rem'}}
-      onClick={handleSubmitClick}>
+        </button>
+        <button onClick={handleSubmitClick} style={{ backgroundColor: "#8a2be2", color: "#fff", padding: "0.5rem 1rem", border: "none", borderRadius: "4px", cursor: "pointer", marginLeft: '1rem' }}>
           Reset
-      </button>
+        </button>
+      </div>
+    </div>
     </div>
 
-    <div className = "container" style={{ height: '650px', width: '1500px', marginTop: '2rem'}}>
-      {/* <div className= "half left"> */}
-      {/* <Inputs setHiddenState = {setHiddenState} setDestination = {setDestination} setOrigin = {setOrigin}/> */}
-      {/* <Paths/> */}
-      {/* {console.log(isHidden)}
-      <button
-      onClick={handleSubmitClick}>
-          Search
-      </button> */}
-      {/* </div> */}
-      {/* <MapComponent/> */}
-      
-      <div className = "half right"> <div style={{ height: '650px', width: '1500px' }}>
-  <GoogleMap
-        center={center}
-        zoom={15}
-        mapContainerStyle={{ width: '100%', height: '100%'}}>
-        <Marker position={center} /> 
-        {console.log("res is printing")}
-        {console.log(directionsResponse)}
-        {directionsResponse && (
-            <DirectionsRenderer directions={directionsResponse} />
-          )}
-  </GoogleMap>
-  
-</div>
- </div>
-
+    <div className="container" style={{ height: 'calc(100vh - 2rem)', width: '100%', overflow: 'hidden' }}>
+    <div className="half right">
+      <div style={{ height: '100%', width: '100%', overflow: 'hidden' }}>
+        <GoogleMap
+          center={center}
+          zoom={15}
+          mapContainerStyle={{ width: '100%', height: '100%' }}
+        >
+          <Marker position={center} />
+          {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
+        </GoogleMap>
+      </div>
+    </div>
     </div>
     </form>
     
