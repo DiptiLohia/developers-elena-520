@@ -69,10 +69,11 @@ export const Inputs = (props) => {
           marginLeft: '1rem',
           padding: '0.5rem',
           borderRadius: '4px',
-          border: '1px solid #ccc',
+          border: '3px solid #000',
           outline: 'none',
           fontSize: '14px',
           width: '200px', 
+          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
         }}
         ref= {inputRefSource}
         id = "source"
@@ -89,10 +90,11 @@ export const Inputs = (props) => {
             marginLeft: '1rem',
             padding: '0.5rem',
             borderRadius: '4px',
-            border: '1px solid #ccc',
+            border: '3px solid #000',
             outline: 'none',
             fontSize: '14px',
             width: '200px', 
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
           }}
           ref= {inputRefDest}
           label="destination"
@@ -107,10 +109,11 @@ export const Inputs = (props) => {
             marginLeft: '1rem',
             padding: '0.5rem',
             borderRadius: '4px',
-            border: '1px solid #ccc',
+            border: '3px solid #000',
             outline: 'none',
             fontSize: '14px',
             width: '200px', 
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
           }}
           type="integer"
           name="pathLimit"
@@ -120,14 +123,14 @@ export const Inputs = (props) => {
 
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "10px" }}>
           <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
-            <div style={{ marginRight: "1rem" }}>Choose one of the elevations:</div>
-            <input type="radio" value="min" name="elevationType"  onChange = {onValueChangeElevation} style={{ marginRight: "0.5rem" }} /> Minimum Elevation
-            <input type="radio" value="max" name="elevationType" onChange = {onValueChangeElevation} style={{ marginRight: "0.5rem" }} /> Maximum Elevation
+            <div style={{ marginRight: "1rem", fontWeight: "bold" }}>Choose one of the elevations:</div>
+            <input type="radio" value="min" name="elevationType"  onChange = {onValueChangeElevation} style={{ marginRight: "0.5rem", fontWeight: "bold" }} /> Minimum Elevation
+            <input type="radio" value="max" name="elevationType" onChange = {onValueChangeElevation} style={{ marginRight: "0.5rem", fontWeight: "bold" }} /> Maximum Elevation
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <div style={{ marginRight: "1rem" }}>Choose one of the algorithms:</div>
-            <input type="radio" value="AStar" name="AlgorithmType" onChange = {onValueChangeAlgorithm} style={{ marginRight: "0.5rem" }} /> A* Algorithm
-            <input type="radio" value="Dijkstra" name="AlgorithmType" onChange = {onValueChangeAlgorithm} style={{ marginRight: "0.5rem" }} /> Dijkstra Algorithm
+            <div style={{ marginRight: "1rem", fontWeight: "bold" }}>Choose one of the algorithms:</div>
+            <input type="radio" value="AStar" name="AlgorithmType" onChange = {onValueChangeAlgorithm} style={{ marginRight: "0.5rem", fontWeight: "bold" }} /> A* Algorithm
+            <input type="radio" value="Dijkstra" name="AlgorithmType" onChange = {onValueChangeAlgorithm} style={{ marginRight: "0.5rem", fontWeight: "bold" }} /> Dijkstra Algorithm
           </div>
         </div>
 
