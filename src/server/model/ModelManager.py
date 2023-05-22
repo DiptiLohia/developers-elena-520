@@ -8,7 +8,7 @@ class ModelManager:
     def __init__(self):
         self.graph = None
         self.map_key = "AIzaSyB123Gg1MjYJ_fmrdhDh5A2ftpitbVtCmA"
-        self.mid_point = (42.391155, -72.526711) # Centre point of UMass Amherst
+        self.mid_point = (42.391155, -72.526711) # Centre point of UMass Amherst(Intial Point)
         self.offline_map_location = "../offlineStreetMap.p"
 
     def analyze_elevation_graph(self, target_loc):
