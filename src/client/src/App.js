@@ -32,6 +32,11 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [thresholdError, setThresholdError] = useState("");
   const [typeOfPath, setTypeOfPath] = useState("elena");
+  const [shortestDistanceValue, setShortestDistanceValue] = useState(0.0000);
+  const [shortestDistanceGain, setShortestDistanceGain] = useState(0.0000);
+  const [elenaDistanceValue, setElenaDistanceValue] = useState(0.0000);
+  const [elenaDistanceGain, setElenaDistanceGain] = useState(0.0000);
+  const [isPathButtonDisabled, setIsPathButtonDisabled] = useState(true);
 
   const setHiddenState = (hidden) => {
     setIsHidden(hidden);
@@ -72,6 +77,11 @@ function App() {
     console.log("#######$$$$");
     console.log(jsonData, typeof(jsonData));
     console.log("#######$$$$");
+
+    setShortestDistanceValue(jsonData.shortest_distance)
+    setShortestDistanceGain(jsonData.shortest_elevation_gain)
+    setElenaDistanceValue(jsonData.elevation_path_distance)
+    setElenaDistanceGain(jsonData.elevation_path_gain)
     
     for(var i = 0; i<jsonData.path_elevation.shape.data_points.length; i++)
     {
@@ -116,19 +126,15 @@ function App() {
 
     directionServiceElena.route(requestElena, function(response, status) {
       if (status === 'OK') {
-        console.log("response PRANAVVVVV",response);
         setDirectionsResponseElena(response);
         setIsLoading(false);
       } else {
         console.error('Directions request failed due to ' + status);
       }
     });
-    console.log("direction response NEEHARIKAAA:",directionsResponseElena);
 
     directionServiceShortest.route(requestShortest, function(response, status) {
-      console.log("INSIDE")
       if (status === 'OK') {
-        console.log("response shortest DIPTIIIIIIII",response);
         setDirectionsResponseShortest(response);
         setIsLoading(false);
         console.log("direction response:",directionsResponseShortest);
@@ -136,9 +142,7 @@ function App() {
         console.error('Directions request failed due to ' + status);
       }
     });
-    console.log("checking state of shortest SHUBHAMMMMM", directionsResponseShortest);
   }
-
  
   async function handleSubmitClick(e){
     if(!isNaN(threshold) && threshold <= 100){
@@ -147,6 +151,7 @@ function App() {
       e.preventDefault();
       setIsHidden(false);
       fetchData(origin,destination)
+      setIsPathButtonDisabled(false)
     }else {
       e.preventDefault();
       setThresholdError("Threshold must be a number and should not exceed 100");
@@ -157,15 +162,14 @@ function App() {
     // Action to perform after state update
     if(origin!==null && destination!==null && threshold!=="" && algorithm!=="" && elevation!=="")
     {
-      console.log("isDisabled", isDisabled);
       setIsDisabled(false);
     }
   }, [origin,destination,threshold,algorithm,elevation, typeOfPath]);
 
   useEffect(() => {
     // Action to perform after state update
-    console.log('State updated:', directionsResponseElena);
-    console.log('State updated short:', directionsResponseShortest);
+    console.log('State updated EleNa:', directionsResponseElena);
+    console.log('State updated Shortest Path:', directionsResponseShortest);
   }, [directionsResponseElena, typeOfPath, directionsResponseShortest]);
 
   const resetStates = () => {
@@ -176,13 +180,17 @@ function App() {
     setThreshold("");
     setAlgorithm("");
     setElevation("");
+    setShortestDistanceValue(0.0000)
+    setShortestDistanceGain(0.0000)
+    setElenaDistanceValue(0.0000)
+    setElenaDistanceGain(0.0000)
   };
 
   return (
     <form>
     <div style={{display: 'flex', justifyContent: "center", alignContent: "center", backgroundColor: "#e0e0e0",}}>
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: '#e0e0e0', padding: '10px', marginRight: 'auto' }}>
-    <Paths setTypeOfPath = {setTypeOfPath}/>
+    <Paths setTypeOfPath = {setTypeOfPath} isPathButtonDisabled = {isPathButtonDisabled}/>
     </div>
     <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "10px", borderRadius:'4px', margin:"4px" }}>
       <Heading/>
@@ -220,64 +228,62 @@ function App() {
       <div style={{ backgroundColor: '#fff', padding: '10px', borderRadius: '4px', marginBottom: '5px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ marginRight:"10px" }}>EleNa Path distance:</span>
-          <span>40.30202</span>
+          <span style={{display: "inline-block", border: "2px solid #000", padding: "2px", borderRadius: "4px"}}>{elenaDistanceValue.toFixed(4)}</span>
         </div>
       </div>
       <div style={{ backgroundColor: '#fff', padding: '10px', borderRadius: '4px', marginBottom: '5px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ marginRight:"10px" }}>EleNa Path elevation gain:</span>
-          <span>40.30202</span>
+          <span style={{display: "inline-block", border: "2px solid #000", padding: "2px", borderRadius: "4px"}}>{elenaDistanceGain.toFixed(4)}</span>
         </div>
       </div>
       <div style={{ backgroundColor: '#fff', padding: '10px', borderRadius: '4px', marginBottom: '5px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ marginRight:"10px" }}>Shortest Path distance:</span>
-          <span>40.30202</span>
+          <span style={{display: "inline-block", border: "2px solid #000", padding: "2px", borderRadius: "4px"}}>{shortestDistanceValue.toFixed(4)}</span>
         </div>
       </div>
       <div style={{ backgroundColor: '#fff', padding: '10px', borderRadius: '4px', marginBottom: '5px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ marginRight:"10px" }}>Shortest Path elevation gain:</span>
-          <span>43420.3020002</span>
+          <span style={{display: "inline-block", border: "2px solid #000", padding: "2px", borderRadius: "4px"}}>{shortestDistanceGain.toFixed(4)}</span>
         </div>
       </div>
     </div>
     </div>
       
     <div className="container" style={{ height: 'calc(100vh - 2rem)', width: '100%', overflow: 'hidden' }}>
-  <div className="loader-container">
-    {isLoading && (
-      <div className="loader-overlay">
-        <div style={{ display: 'flex', alignItems: 'center', background: '#fff', borderRadius: '8px', padding: '10px' }}>
-          <div className="spinner"></div>
-          <p style={{ textAlign: 'center', marginTop: '1rem', color: '#8a2be2', marginLeft:"10px", fontSize:"20px" }}>Loading path...</p> 
+      <div className="loader-container">
+        {isLoading && (
+          <div className="loader-overlay">
+            <div style={{ display: 'flex', alignItems: 'center', background: '#fff', borderRadius: '8px', padding: '10px' }}>
+              <div className="spinner"></div>
+              <p style={{ textAlign: 'center', marginTop: '1rem', color: '#8a2be2', marginLeft:"10px", fontSize:"20px" }}>Loading path...</p> 
+            </div>
+          </div>
+        )}
+        <div className="half right">
+          <div className="map-container">
+            <GoogleMap
+              center={center}
+              zoom={15}
+              mapContainerStyle={{ height: '100%', width: '100%' }}
+            >
+              {/* <Marker position={center} /> */}
+              {typeOfPath === "shortest" && directionsResponseShortest ? (
+                <>
+                  <DirectionsRenderer directions={directionsResponseShortest} />
+                </>
+              ) : (
+                <>
+                  <DirectionsRenderer directions={directionsResponseElena} />
+                </>
+              )}
+            </GoogleMap>
+          </div>
         </div>
       </div>
-    )}
-    <div className="half right">
-      <div className="map-container">
-      <GoogleMap
-        center={center}
-        zoom={15}
-        mapContainerStyle={{ height: '100%', width: '100%' }}
-      >
-        {/* <Marker position={center} /> */}
-        {typeOfPath === "shortest" && directionsResponseShortest ? (
-          <>
-            {console.log('Condition: typeOfPath === "shortest"')}
-            <DirectionsRenderer directions={directionsResponseShortest} />
-          </>
-        ) : (
-          <>
-            {console.log('Condition: typeOfPath !== "shortest"')}
-            <DirectionsRenderer directions={directionsResponseElena} />
-          </>
-        )}
-      </GoogleMap>
-      </div>
     </div>
-  </div>
-</div>
     </form>
     
   );
