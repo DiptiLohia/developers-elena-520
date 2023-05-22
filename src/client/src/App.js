@@ -13,6 +13,7 @@ import {
   DirectionsRenderer,
 } from '@react-google-maps/api'
 
+
 const center = { lat: 42.3867637, lng: -72.5322402 }
 var waypoints = [];
 function App() {
@@ -59,10 +60,7 @@ function App() {
       }
     });
   };
-
-
-
-
+  
   function parseBackendResponse(jsonData)
   {
     jsonData = JSON.parse(jsonData)

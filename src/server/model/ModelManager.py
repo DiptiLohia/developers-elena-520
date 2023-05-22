@@ -3,17 +3,22 @@ import pickle as pkl
 import osmnx as ox
 from haversine import haversine, Unit
 
+
 class ModelManager:
     def __init__(self):
         self.graph = None
         self.map_key = "AIzaSyB123Gg1MjYJ_fmrdhDh5A2ftpitbVtCmA"
-        self.mid_point = (42.3867637, -72.5322402) # Centre point of UMass Amherst
+        self.mid_point = (42.391155, -72.526711) # Centre point of UMass Amherst
         self.offline_map_location = "../offlineStreetMap.p"
 
     def analyze_elevation_graph(self, target_loc):
+
         print("Loading the offline map....", self.offline_map_location)
         try:
-            self.graph = pkl.load(open("src/offlineStreetMap.p", "rb"))
+            with open(self.offline_map_location, "rb") as file:
+                self.graph = pkl.load(file)
+
+            # self.graph = pkl.load(open("../src/offlineStreetMap.p", "rb"))
             self.graph = ox.add_edge_grades(self.graph)
         except:
             if os.path.exists("../offlineStreetMap.p"):
@@ -29,6 +34,7 @@ class ModelManager:
             target_loc_X = self.graph.nodes[node]['x']
             target_loc_Y = self.graph.nodes[node]['y']
             data['dist_from_dest'] = haversine((target_X, target_Y), (target_loc_X, target_loc_Y), unit=Unit.METERS)
+
         return self.graph
     
     def save_map_to_cache(self):

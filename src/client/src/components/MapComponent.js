@@ -84,10 +84,11 @@ return(
 
   <div style={{ height: '400px', width: '900px' }}>;
   <GoogleMap
+        data-testid="map"
         center={center}
         zoom={15}
         mapContainerStyle={{ width: '100%', height: '100%' }}>
-        <Marker position={center} /> 
+        <Marker data-testid="marker" position={center} /> 
         
 
   </GoogleMap>

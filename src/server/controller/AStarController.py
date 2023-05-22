@@ -1,5 +1,5 @@
-from server.controller.BaseController import *
-from server.model.Algorithms import AstarRoute
+from src.server.controller.BaseController import *
+from src.server.model.Algorithms import AstarRoute
 
 class AStarController(BaseController):
     def __init__(self):
