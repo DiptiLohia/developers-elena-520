@@ -11,9 +11,7 @@ class BaseController(ABC):
     def set_route_model(self, model):
         """
         Set the model object for the controller.
-
-        Args:
-            model: The model object to be set.
+        Args:model: The model object to be set.
         """
         pass
 
@@ -21,9 +19,7 @@ class BaseController(ABC):
     def set_elevation_strategy(self, strategy):
         """
         Set the elevation strategy for the controller.
-
-        Args:
-            strategy: The elevation strategy object to be set.
+        Args:strategy: The elevation strategy object to be set.
         """
         pass
 
