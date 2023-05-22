@@ -69,10 +69,11 @@ export const Inputs = (props) => {
           marginLeft: '1rem',
           padding: '0.5rem',
           borderRadius: '4px',
-          border: '1px solid #ccc',
+          border: '3px solid #000',
           outline: 'none',
           fontSize: '14px',
           width: '200px', 
+          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
         }}
         ref= {inputRefSource}
         id = "source"
@@ -89,10 +90,11 @@ export const Inputs = (props) => {
             marginLeft: '1rem',
             padding: '0.5rem',
             borderRadius: '4px',
-            border: '1px solid #ccc',
+            border: '3px solid #000',
             outline: 'none',
             fontSize: '14px',
             width: '200px', 
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
           }}
           ref= {inputRefDest}
           label="destination"
@@ -107,10 +109,11 @@ export const Inputs = (props) => {
             marginLeft: '1rem',
             padding: '0.5rem',
             borderRadius: '4px',
-            border: '1px solid #ccc',
+            border: '3px solid #000',
             outline: 'none',
             fontSize: '14px',
             width: '200px', 
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
           }}
           type="integer"
           name="pathLimit"
