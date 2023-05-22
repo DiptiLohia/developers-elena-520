@@ -22,22 +22,75 @@ test("Heading is Loaded", () => {
   expect(screen.getByText("EleNa: Find the best route for you!")).toBeInTheDocument();
 });
 
-// test("Input fields are Loaded", () => {
-//   render(
-//     <div className="map-container">
-//         <GoogleMap
-//           center={center}
-//           zoom={15}
-//           mapContainerStyle={{ height: '100%', width: '100%' }}
-//         >
-//           <Marker position={center} />
-//           {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
-//         </GoogleMap>
-//       </div>
-//   );
-//   expect(screen.getByTestId("map")).toBeInTheDocument();
-//   expect(screen.getByTestId("marker")).toBeInTheDocument();
-//   });
+test("Value in the input field - Source", () => {
+  render(
+    <input
+        style={{
+          marginLeft: '1rem',
+          padding: '0.5rem',
+          borderRadius: '4px',
+          border: '3px solid #000',
+          outline: 'none',
+          fontSize: '14px',
+          width: '200px', 
+          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+        }}
+        id = "source"
+          label="source"
+          type="address"
+          name="source"
+          placeholder="Enter Source"
+          className="mbsc-col-12 mbsc-col-lg-6"
+        />
+  );
+
+  expect(screen.getByPlaceholderText("Enter Source")).toBeInTheDocument();
+});
+
+test("Value in the input field - Destination", () => {
+  render(
+    <input
+          style={{
+            marginLeft: '1rem',
+            padding: '0.5rem',
+            borderRadius: '4px',
+            border: '3px solid #000',
+            outline: 'none',
+            fontSize: '14px',
+            width: '200px', 
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+          }}
+          label="destination"
+          type="address"
+          name="destination"
+          placeholder="Enter Destination"
+        />
+  );
+
+  expect(screen.getByPlaceholderText("Enter Destination")).toBeInTheDocument();
+});
+
+test("Value in the input field - Path Limit", () => {
+  render(
+    <input
+          style={{
+            marginLeft: '1rem',
+            padding: '0.5rem',
+            borderRadius: '4px',
+            border: '3px solid #000',
+            outline: 'none',
+            fontSize: '14px',
+            width: '200px', 
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+          }}
+          type="integer"
+          name="pathLimit"
+          placeholder="Enter path limit (Max 100)"
+        />
+  );
+
+  expect(screen.getByPlaceholderText("Enter path limit (Max 100)")).toBeInTheDocument();
+});
 
 test("Search button is disabled when the input fields are empty", () => {
   const isDisabled = true;
@@ -104,23 +157,47 @@ test("Shortest Path Metrics are rendered correctly", () => {
   expect(screen.getByText("43420.3020002")).toBeInTheDocument();
 });
 
-test('Selecting an algorithm', () => {
-  const onValueChangeAlgorithm = jest.fn();
-
+test("Testing the radio buttons of the min-max elevation", async () => {
   render(
-    <form className = "input_forms">
-    <div style={{ display: "flex", alignItems: "center" }}>
-      <div style={{ marginRight: "1rem" }}>Choose one of the algorithms:</div>
-      <input type="radio" value="AStar" name="AlgorithmType" onChange={onValueChangeAlgorithm} style={{ marginRight: "0.5rem" }} /> 
-      <label htmlFor="astar">A* Algorithm</label>
-      <input type="radio" value="Dijkstra" name="AlgorithmType" onChange={onValueChangeAlgorithm} style={{ marginRight: "0.5rem" }} /> 
-      <label htmlFor="dijkstra">Dijkstra Algorithm</label>
+    <div data-testid="elevation">
+        <input data-testid="min" type="radio" value="min" name="elevationType" style={{ marginRight: "0.5rem" }} /> Minimum Elevation
+        <input data-testid="max" type="radio" value="max" name="elevationType" style={{ marginRight: "0.5rem" }} /> Maximum Elevation
     </div>
-    </form>
   );
 
-  fireEvent.click(screen.getByLabelText('Dijkstra Algorithm', { selector: 'label[htmlFor="dijkstra"]' }));
+  const radioButtons = screen.getByTestId("elevation");
+  const min = screen.getByTestId("min");
+  const max = screen.getByTestId("max");
+  expect(radioButtons).toBeInTheDocument();
+
+  fireEvent.click(min);
+  expect(max).not.toBeChecked();
+
+  fireEvent.click(max);
+  expect(max).toBeChecked();
+
+});
 
 
-  expect(onValueChangeAlgorithm).toHaveBeenCalledWith('Dijkstra');
+test("Testing the radio buttons of the algorithm", async () => {
+  render(
+    <div data-testid="options">
+    <input data-testid="astar" type="radio" value="AStar" name="AlgorithmType" id="astar" style={{ marginRight: "0.5rem" }}/> 
+    <label>A* Algorithm</label>
+    <input data-testid="dijkstra" type="radio" value="Dijkstra" name="AlgorithmType" id="dijkstra" style={{ marginRight: "0.5rem" }}/> 
+    <label>Dijkstra Algorithm</label>
+    </div>
+  );
+
+  const radioButtons = screen.getByTestId("options");
+  const astar = screen.getByTestId("astar");
+  const dijkstra = screen.getByTestId("dijkstra");
+  expect(radioButtons).toBeInTheDocument();
+
+  fireEvent.click(astar);
+  expect(dijkstra).not.toBeChecked();
+
+  fireEvent.click(dijkstra);
+  expect(dijkstra).toBeChecked();
+
 });

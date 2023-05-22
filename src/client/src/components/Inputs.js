@@ -124,15 +124,19 @@ export const Inputs = (props) => {
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "10px" }}>
           <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
             <div style={{ marginRight: "1rem" }}>Choose one of the elevations:</div>
-            <input type="radio" value="min" name="elevationType" onChange = {onValueChangeElevation} style={{ marginRight: "0.5rem" }} /> Minimum Elevation
-            <input type="radio" value="max" name="elevationType" onChange = {onValueChangeElevation} style={{ marginRight: "0.5rem" }} /> Maximum Elevation
+            <div data-testid="elevation">
+            <input data-testid="min" type="radio" value="min" name="elevationType" onChange = {onValueChangeElevation} style={{ marginRight: "0.5rem" }} /> Minimum Elevation
+            <input data-testid="max" type="radio" value="max" name="elevationType" onChange = {onValueChangeElevation} style={{ marginRight: "0.5rem" }} /> Maximum Elevation
+            </div>
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
             <div style={{ marginRight: "1rem" }}>Choose one of the algorithms:</div>
-            <input type="radio" value="AStar" name="AlgorithmType" id="astar" onChange = {onValueChangeAlgorithm} style={{ marginRight: "0.5rem" }} /> 
-            <label>A* Algorithm</label>A* Algorithm
-            <input type="radio" value="Dijkstra" name="AlgorithmType" id="dijkstra" onChange = {onValueChangeAlgorithm} style={{ marginRight: "0.5rem" }} /> 
-            <label>Dijkstra Algorithm</label>Dijkstra Algorithm
+            <div data-testid="options">
+            <input data-testid="astar" type="radio" value="AStar" name="AlgorithmType" id="astar" onChange = {onValueChangeAlgorithm} style={{ marginRight: "0.5rem" }} /> 
+            <label>A* Algorithm</label>
+            <input data-testid="dijkstra" type="radio" value="Dijkstra" name="AlgorithmType" id="dijkstra" onChange = {onValueChangeAlgorithm} style={{ marginRight: "0.5rem" }} /> 
+            <label>Dijkstra Algorithm</label>
+            </div>
           </div>
         </div>
 
