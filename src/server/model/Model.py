@@ -1,6 +1,6 @@
-from src.server.model.utils import get_coordinates_from_address
-from src.server.model.ModelManager import ModelManager
-from src.server.model.OptimalPathCalculator import OptimalPathCalculator
+from server.model.utils import get_coordinates_from_address
+from server.model.ModelManager import ModelManager
+from server.model.OptimalPathCalculator import OptimalPathCalculator
 
 class Model:
     def __init__(self):

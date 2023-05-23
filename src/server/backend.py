@@ -5,10 +5,10 @@ import json
 import googlemaps
 from flask import Flask, request, render_template
 
-from src.server.controller.AStarController import *
-from src.server.controller.DijkstraController import *
-from src.server.model.Model import *
-from src.server.controller.NotificationHandler import NotificationHandler
+from server.controller.AStarController import *
+from server.controller.DijkstraController import *
+from server.model.Model import *
+from server.controller.NotificationHandler import NotificationHandler
 from flask_cors import CORS
 
 app = Flask(__name__)

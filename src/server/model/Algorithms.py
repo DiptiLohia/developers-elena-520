@@ -2,8 +2,8 @@ import networkx as nx
 import osmnx as ox
 import math
 import logging
-from src.server.model.RouteInfo import RouteInfo
-from src.server.model.utils import compute_path_weight, search_algorithm
+from server.model.RouteInfo import RouteInfo
+from server.model.utils import compute_path_weight, search_algorithm
 
 class DijkstraRoute:
     def __init__(self, graph, closest_route, path_limit, elevation_strategy, initial_location, target_location, shortest_elevation_gain):

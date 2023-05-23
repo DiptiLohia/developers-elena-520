@@ -1,8 +1,8 @@
 import logging
 import networkx as nx
 import osmnx as ox
-from src.server.model.RouteInfo import RouteInfo
-from src.server.model.utils import compute_path_weight
+from server.model.RouteInfo import RouteInfo
+from server.model.utils import compute_path_weight
 
 class OptimalPathCalculator:
     def __init__(self, graph):

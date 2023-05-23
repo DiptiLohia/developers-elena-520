@@ -155,6 +155,11 @@ function App() {
     }else {
       e.preventDefault();
       setThresholdError("Threshold must be a number and should not exceed 100");
+
+      // Clear the threshold error after 3 seconds
+      setTimeout(() => {
+        setThresholdError("");
+      }, 3000);
     }
   };
 

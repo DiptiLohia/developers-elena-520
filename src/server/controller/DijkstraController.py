@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from src.server.controller.BaseController import *
-from src.server.model.Algorithms import DijkstraRoute
+from server.controller.BaseController import *
+from server.model.Algorithms import DijkstraRoute
 
 class DijkstraController(BaseController):
     def __init__(self):
