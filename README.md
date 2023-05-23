@@ -3,5 +3,7 @@ A Software program designed to guide a user from a starting point to a destinati
 
 **----**
 MAIN PROJECT BRANCH
-main_project
 **----**
+```
+main_project
+```
