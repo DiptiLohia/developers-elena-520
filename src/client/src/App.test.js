@@ -2,7 +2,7 @@ import { render, screen, fireEvent} from '@testing-library/react';
 import App from './App';
 import {Heading} from './components/Heading'
 import {Inputs} from './components/Inputs'
-
+import '@testing-library/jest-dom';
 
 
 // test('renders learn react link', () => {

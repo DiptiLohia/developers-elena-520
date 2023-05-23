@@ -76,13 +76,36 @@ The `Reset` button resets the user interface to its default settings.
 # Documentation
 
 ### Evaluation and Design Report
-- You can find the detailed evaluation and design document at ```Evaluation and Design Document```.pdf.
+- You can find the detailed evaluation and design document at ```Evaluation and Design document```.pdf.
 
-### White Box testing
-- ```UI Testing Report```
+### Software requirements specification Document
+- You can find the detailed evaluation and design document at ```Software requirements specification document```.pdf.
 
-### Automated testing using unit-test framework
-- Go to test directory and run the files `MVCTestSuite.py` and `AlgorithmTestSuite.py`
+### Automated testing using react and unit-test framework
+- To perform testing using react. Please follow the steps below:
+
+1. Install the necessary dependency by running the following command:
+```
+npm install --save-dev @testing-library/jest-dom
+```
+2. Move into the client directory
+```
+cd src/client
+```
+3. Run the following command to run the App.test.js 
+```
+npm test
+```
+
+- To perform testing using unit-test framework. Please follow the steps below: (change the system statment on the top based on your file path which is our projects root path)
+1. Move into the test directory
+```
+cd src/tests
+```
+2. Run the following command to run the test.py
+```
+python3 test.py
+```
 
 ### Console Logs
 Console logs provide access to valuable information, including metrics for the shortest route and elevation route, as well as details about the requests and responses.
