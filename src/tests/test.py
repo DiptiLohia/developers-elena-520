@@ -9,24 +9,6 @@ from src.server.model.OptimalPathCalculator import *
 from src.server.model.utils import *
 
 class Test(unittest.TestCase):
-
-    graph = None
-
-    def setUp(self):
-        self.graph = nx.MultiDiGraph()
-        for x in range(5):
-            self.graph.add_node(x, elevation=0.0)
-        node_node_lengths = [(0, 2, 4), (1, 4, 7), (1, 5, 2), (2, 3, 8), (4, 5, 3)]
-        node_node_elevations = [(0, 2, 2.0), (1, 4, -1.0), (1, 5, 0.0), (2, 3, -4.0), (4, 5, 2.0)]
-        node_node_abs_elevations = [(0, 2, 2.0), (1, 4, 1.0), (1, 5, 0.0), (2, 3, 4.0), (4, 5, 2.0)]
-        self.graph.add_weighted_edges_from(node_node_lengths)
-        self.graph.add_weighted_edges_from(node_node_elevations)
-        self.graph.add_weighted_edges_from(node_node_abs_elevations)
-
-        value_elevations = [1.0, 0.0, 2.0, 4.0]
-
-        for i, elev in enumerate(value_elevations):
-            self.graph.nodes[i]["Elevation"] = elev
     
     #Checking if the map is rendered properly
     def test_map_render(self):
@@ -41,7 +23,7 @@ class Test(unittest.TestCase):
         address = get_coordinates_from_address(lat_long)
         assert 'University of Massachusetts Amherst' in address
     
-    #Checking if the astar path has less evaluation than the shortest path
+    #Checking if the astar path has less elevation than the shortest path
     def test_astar_short_path(self):
 
         start = (42.391155, -72.526711)
@@ -66,7 +48,7 @@ class Test(unittest.TestCase):
         assert elevation_path_distance <= (1 + path_limit / 100) * shortest_distance
         assert elevation_path_gain >= shortest_elevation_gain
 
-    #Checking if the dijkstra path has less evaluation than the shortest path  
+    #Checking if the dijkstra path has less elevation than the shortest path  
     def test_dijstra_short_path(self):
 
         start = (42.391155, -72.526711)
