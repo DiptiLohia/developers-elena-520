@@ -21,10 +21,8 @@ function App() {
   const [isHidden, setIsHidden] = useState(true)
   const [origin,setOrigin] = useState(null);
   const [destination, setDestination] = useState(null)
-  const [pathPoints, setPathPoints] = useState(null);
   const [directionsResponseElena, setDirectionsResponseElena] = useState(null);
   const [directionsResponseShortest, setDirectionsResponseShortest] = useState(null);
-
   const [threshold, setThreshold] = useState("");
   const [algorithm, setAlgorithm] = useState("");
   const [elevation ,setElevation] = useState("");
